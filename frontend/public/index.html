@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.1/socket.io.min.js" integrity="sha512-tXH7Av8en7+/hg0XwBppaCDPmpJhUXbZ+j7lNC4y+ZQpmCZQcgQN6RjkM7Irj1MUW7bZengfuTOqR4RzCC4bnA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="app.js"></script>
+  <title>Document</title>
+</head>
+<body class="container-fluid">
+  <div class="row">
+    <div class="col-md-4">
+      <h3>Upload files using Busboy</h3>
+      <form id="form" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="field">Files</label>
+          <input 
+            type="file"
+            class="form-control"
+            id="file"
+            name="file"
+            onchange="showSize()"
+            multiple
+          />
+          <output class="span" id="size"></output>
+          <br/>
+          <output class="span" id="msg"></output>
+          <div class="form-group">
+            <input type="submit" class="btn btn-success"/>
+            <input type="reset" class="btn btn-danger"/>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

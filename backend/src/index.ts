@@ -2,8 +2,8 @@ import http from 'http'
 import express from 'express'
 import { Server } from 'socket.io'
 
-import { logger } from './utils.js'
-import {routes} from './routes.js'
+import {routes} from './routes'
+import { logger } from './utils'
 
 /* TODO: Configurar cors */
 const PORT = 3000

@@ -1,14 +1,17 @@
+import { Request, Response } from 'express'
 import { pipeline } from 'node:stream/promises'
-import { io } from './index.js'
-import { UploadHandler } from './uploadHandler.js'
-import { logger } from './utils.js'
-export async function requestHandler(req, res){
+
+import { io } from './index'
+import { UploadHandler } from './UploadHandler'
+import { logger } from './utils'
+
+export async function requestHandler(req: Request, res: Response){
   const {socketId} = req.query
   const headers = req.headers
 
-  const uploadHandler = new UploadHandler(io, socketId)
+  const uploadHandler = new UploadHandler(io, String(socketId))
   
-  const onFinish = (req, res) => () => {
+  const onFinish = (req: Request, res: Response) => () => {
     res.status(303).redirect(`${req.headers.origin}?msg=Files uploaded success!`)
   }
 

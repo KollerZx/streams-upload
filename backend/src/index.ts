@@ -1,6 +1,7 @@
 import http from 'http'
-import express from 'express'
+import express, { json, urlencoded } from 'express'
 import { Server } from 'socket.io'
+import cors from 'cors'
 
 import {routes} from './routes'
 import { logger } from './utils'
@@ -9,6 +10,9 @@ import { logger } from './utils'
 const PORT = 3000
 const app = express()
 
+app.use(cors())
+app.use(urlencoded({extended:true}))
+app.use(json())
 app.use(routes)
 
 const server = http.createServer(app)

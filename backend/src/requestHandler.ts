@@ -12,7 +12,8 @@ export async function requestHandler(req: Request, res: Response){
   const uploadHandler = new UploadHandler(io, String(socketId))
   
   const onFinish = (req: Request, res: Response) => () => {
-    res.status(303).redirect(`${req.headers.origin}?msg=Files uploaded success!`)
+    io.to(String(socketId)).emit('upload-finish', 'Files uploaded success!')
+    res.status(200).end()
   }
 
   const busboy = uploadHandler.registerEvents(headers, onFinish(req, res))

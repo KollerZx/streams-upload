@@ -32,7 +32,7 @@ export class UploadHandler{
     return handleData.bind(this)
   }
   
-  private async onFIle(name: string, file: Readable, info: FileInfo)  {
+  private async onFile(name: string, file: Readable, info: FileInfo)  {
     const { filename } = info;
 
     const saveFileTo = path.resolve(path.dirname('./'), 'downloads', filename)
@@ -51,7 +51,7 @@ export class UploadHandler{
   registerEvents(headers: IncomingHttpHeaders, onFinish: () => void){
     const busboy = Busboy({headers})
 
-    busboy.on('file', this.onFIle.bind(this))
+    busboy.on('file', this.onFile.bind(this))
 
     busboy.on('finish', onFinish)
 

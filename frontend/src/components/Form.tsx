@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react"
+import { toast, Toaster } from "react-hot-toast"
 import { io } from "socket.io-client"
 
-import {api} from '../lib/api'
-import { ToastUpload } from "./Toast"
-//import {socket} from '../lib/socket'
+import { api } from '../lib/api'
 
 const socket = io('http://localhost:3000', {transports: ['websocket']})
 
@@ -12,6 +11,7 @@ export function Form(){
   const [currentSocketId, setCurrentSocketId] = useState('')
   const [files, setFiles] = useState<File[]>([])
   const [uploadIsFinish, setUploadIsFinish] = useState(false)
+
   useEffect(() => {
     socket.on('connect', () => {
       console.log('A user connected',socket.id)
@@ -21,11 +21,10 @@ export function Form(){
     socket.on('disconnect', () => console.log('I am disconnected'))
 
     socket.on('file-uploaded', (bytesReceived:any) => {
-      console.log(bytesReceived)
       setBytesAmount(state => state - bytesReceived)
     })
   
-    socket.on('upload-finish', (msg:string) => setUploadIsFinish(!uploadIsFinish))
+    socket.on('upload-finish', (msg:string) => setUploadIsFinish(true))
 
     return () => {
       socket.off('connect')
@@ -47,7 +46,7 @@ export function Form(){
     )
   }
 
-  const showSize = (files: File[]) => {
+  const updateSize = (files: File[]) => {
     const {size} = files
                 .reduce((prev, next) => ({ size: prev.size + next.size}), { size: 0})
   
@@ -64,7 +63,7 @@ export function Form(){
   const handleChangeFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = convertFileListInArray(e.target.files)
     if(files){
-      showSize(files)
+      updateSize(files)
       setFiles(files)
     }
   }
@@ -84,9 +83,19 @@ export function Form(){
       console.log(error)
     }
   }
+  
+  const notify = () => toast.success('Upload Success!')
+  
+  useEffect(() =>{
+    if(uploadIsFinish){
+      notify()
+      setUploadIsFinish(false)
+    }
+  },[uploadIsFinish])
 
   return(
-    <div className="flex flex-col max-w-[1020px] mx-auto mt-5 p-8">
+    <div className="flex flex-col max-w-[1020px] mx-auto mt-8 p-8">
+      <Toaster position="top-center"/>
       <form onSubmit={ handleSubmit}>
         <label className="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300" htmlFor="multiple_files">Upload multiple files</label>
         <input className="block w-full text-lg text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" 
@@ -109,9 +118,7 @@ export function Form(){
       </form>
       <output className="dark:text-gray-300 mt-5" id="size">
         <strong>Pending Bytes to Upload: {bytesAmount ? formatBytes(bytesAmount) : 0}</strong>  
-      </output>
-      {!uploadIsFinish && <ToastUpload/>}
-      
+      </output> 
   </div>
   )
 }

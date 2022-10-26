@@ -4,18 +4,15 @@
 Upload files on demand with busboy and nodejs streams
 
 
-
-
 ## Stacks
 
 - NodeJS - Streams
 - Socket.io
 - Express
-## Watch the demo video
+- React
+## Demo
 
-
-[![Watch](https://i.vimeocdn.com/video/1533780433-24f8c4c2973f83632737080722e8cd37e423f4683ebf522d4593934e86ea5459-d?mw=1300&mh=549)](https://vimeo.com/763747451)
-
+<img src="./frontend/.github/images/upload-nodejs-streams.gif" max-width="1280px">
 
 ## Running
 
@@ -40,7 +37,7 @@ Install dependencies
 Running the frontend
 
 ```bash
-  npm start
+  npm run dev
 ```
 
 Access the backend directory
@@ -54,7 +51,7 @@ Install dependencies
 Running the backend
 
 ```bash
-  npm start
+  npm run dev
 ```
 
 ## Licença

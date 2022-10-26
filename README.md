@@ -10,9 +10,9 @@ Upload files on demand with busboy and nodejs streams
 - Socket.io
 - Express
 - React
-## Demo
+## Watch the Demo on Vimeo player
 
-<img src="./frontend/.github/images/upload-nodejs-streams.gif" max-width="1280px">
+![Watch](https://i.vimeocdn.com/video/1534527995-7034601bc8c4cd5f6c16b1071674f95e4135c5e0d908d1b9d93ac94b6700a1d1-d?mw=1280&mh=675)](https://vimeo.com/763747451)
 
 ## Running
 
